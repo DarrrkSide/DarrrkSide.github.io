@@ -1,0 +1,356 @@
+/* ============================================================
+   HOLLOWMERE — Field Guide
+   A drowned-kingdom fantasy guide site.
+   Design language: illuminated field journal found in a bog —
+   parchment ink, bioluminescent moss glow, wax-seal rarity marks.
+   ============================================================ */
+
+:root {
+  /* --- Color: swamp-lantern palette --- */
+  --bg: #070d0b;
+  --bg-alt: #0d1613;
+  --panel: #101d19;
+  --panel-raised: #142621;
+  --line: rgba(232, 226, 208, 0.09);
+  --line-strong: rgba(232, 226, 208, 0.18);
+
+  --ink: #e8e2d0;
+  --ink-dim: #9fada4;
+  --ink-faint: #6b7a72;
+
+  --moss: #5eead4;
+  --moss-glow: #7fffb0;
+  --lantern: #f0b45c;
+  --lantern-dim: #b6803a;
+  --blood-moth: #d9736b;
+
+  /* rarity marks */
+  --r-common: #8a9a90;
+  --r-uncommon: #4f9d86;
+  --r-rare: #f0b45c;
+  --r-mythic: #7fffb0;
+
+  /* --- Type --- */
+  --f-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --f-body: "Work Sans", "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  --radius: 3px;
+  --shadow-deep: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Texture: faint vignette + noise-ish gradient wash, no external images needed */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(94, 234, 212, 0.08), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(240, 180, 92, 0.06), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+}
+
+#spore-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.wrap { position: relative; z-index: 1; }
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+::selection { background: var(--moss); color: #06110d; }
+
+/* --- Focus states (accessibility) --- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--moss-glow);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+/* ============ Typography ============ */
+h1, h2, h3, h4 {
+  font-family: var(--f-display);
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  margin: 0 0 0.5em;
+}
+h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 500; line-height: 1.04; }
+h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 600; }
+h3 { font-size: 1.3rem; }
+p { margin: 0 0 1em; color: var(--ink-dim); }
+.eyebrow {
+  font-family: var(--f-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.72rem;
+  color: var(--moss);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+.eyebrow::before {
+  content: "";
+  width: 20px;
+  height: 1px;
+  background: var(--moss);
+  opacity: 0.6;
+}
+
+/* ============ Layout shells ============ */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+section { padding: 88px 0; }
+.section-tight { padding: 48px 0; }
+
+/* ============ Nav ============ */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(10px);
+  background: rgba(7, 13, 11, 0.75);
+  border-bottom: 1px solid var(--line);
+}
+.site-nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+.brand {
+  font-family: var(--f-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-mark {
+  width: 22px; height: 22px;
+  position: relative;
+  flex-shrink: 0;
+}
+.brand-mark svg { width: 100%; height: 100%; }
+.nav-links {
+  display: flex;
+  gap: 30px;
+  font-family: var(--f-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.nav-links a {
+  color: var(--ink-dim);
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--moss-glow); }
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: var(--moss-glow);
+}
+.nav-toggle { display: none; }
+
+@media (max-width: 720px) {
+  .nav-links {
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: var(--bg-alt);
+    flex-direction: column;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+  .nav-links.open { max-height: 300px; }
+  .nav-links a { padding: 16px 28px; border-top: 1px solid var(--line); }
+  .nav-toggle {
+    display: block;
+    background: none; border: 1px solid var(--line-strong);
+    color: var(--ink); width: 38px; height: 34px; border-radius: var(--radius);
+    font-family: var(--f-mono);
+  }
+}
+
+/* ============ Buttons ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--f-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 13px 22px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-strong);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  background: transparent;
+  color: var(--ink);
+}
+.btn-primary {
+  background: var(--moss);
+  color: #06120d;
+  border-color: var(--moss);
+  font-weight: 600;
+}
+.btn-primary:hover { background: var(--moss-glow); box-shadow: 0 0 24px rgba(127, 255, 176, 0.35); }
+.btn-ghost:hover { border-color: var(--moss); color: var(--moss-glow); }
+
+/* ============ Hero ============ */
+.hero {
+  padding: 120px 0 90px;
+  position: relative;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.hero h1 span { color: var(--moss-glow); font-style: italic; }
+.hero-lede { font-size: 1.08rem; max-width: 46ch; }
+.hero-actions { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 56px;
+  font-family: var(--f-mono);
+}
+.hero-stats div strong {
+  display: block;
+  font-size: 1.6rem;
+  color: var(--moss-glow);
+  font-family: var(--f-display);
+}
+.hero-stats div span { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faint); }
+
+.hero-panel {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: linear-gradient(160deg, var(--panel-raised), var(--panel));
+  padding: 26px;
+  position: relative;
+  box-shadow: var(--shadow-deep);
+}
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(94, 234, 212, 0.15);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; }
+}
+
+/* ============ Journal card (signature element) ============
+   Used for chapters, teams, and calculator results.
+   Torn top edge + wax seal corner = "field journal entry" motif. */
+.journal-card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 30px;
+  overflow: hidden;
+}
+.journal-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: repeating-linear-gradient(90deg, var(--line-strong) 0 6px, transparent 6px 12px);
+  opacity: 0.7;
+}
+
+/* ============ Section dividers ============ */
+.mire-divider {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 8px 0 44px;
+  color: var(--ink-faint);
+}
+.mire-divider::before, .mire-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+}
+.mire-divider svg { flex-shrink: 0; opacity: 0.6; }
+
+/* ============ Footer ============ */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 48px 0;
+  margin-top: 60px;
+}
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+/* ============ Utility ============ */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+@media (max-width: 860px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+.tag {
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  color: var(--ink-dim);
+}
