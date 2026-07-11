@@ -6,29 +6,29 @@
    ============================================================ */
 
 :root {
-  /* --- Color: swamp-lantern palette --- */
-  --bg: #070d0b;
-  --bg-alt: #0d1613;
-  --panel: #101d19;
-  --panel-raised: #142621;
+  /* --- Color: ember-lantern palette (red) --- */
+  --bg: #0d0706;
+  --bg-alt: #170a09;
+  --panel: #1e0f0d;
+  --panel-raised: #281512;
   --line: rgba(232, 226, 208, 0.09);
   --line-strong: rgba(232, 226, 208, 0.18);
 
-  --ink: #e8e2d0;
-  --ink-dim: #9fada4;
-  --ink-faint: #6b7a72;
+  --ink: #ede3dc;
+  --ink-dim: #ad9993;
+  --ink-faint: #7a6560;
 
-  --moss: #5eead4;
-  --moss-glow: #7fffb0;
-  --lantern: #f0b45c;
-  --lantern-dim: #b6803a;
-  --blood-moth: #d9736b;
+  --moss: #ff6f61;
+  --moss-glow: #ff9285;
+  --lantern: #f2935c;
+  --lantern-dim: #b8623a;
+  --blood-moth: #c94f45;
 
   /* rarity marks */
-  --r-common: #8a9a90;
-  --r-uncommon: #4f9d86;
-  --r-rare: #f0b45c;
-  --r-mythic: #7fffb0;
+  --r-common: #a08c88;
+  --r-uncommon: #c96a4f;
+  --r-rare: #f2935c;
+  --r-mythic: #ff6f61;
 
   /* --- Type --- */
   --f-display: "Fraunces", "Iowan Old Style", Georgia, serif;
@@ -62,8 +62,8 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(94, 234, 212, 0.08), transparent 60%),
-    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(240, 180, 92, 0.06), transparent 60%),
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 111, 97, 0.08), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(242, 147, 92, 0.06), transparent 60%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
 }
 
@@ -336,6 +336,34 @@ footer .container {
   font-family: var(--f-mono);
   font-size: 0.78rem;
   color: var(--ink-faint);
+}
+
+/* ============ Discord floating button (all pages, via js/main.js) ============ */
+.discord-fab {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 60;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--moss);
+  color: #1a0705;
+  box-shadow: var(--shadow-deep);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.discord-fab svg { width: 26px; height: 26px; }
+.discord-fab:hover, .discord-fab:focus-visible {
+  transform: translateY(-3px) scale(1.05);
+  background: var(--moss-glow);
+  box-shadow: 0 0 24px rgba(255, 111, 97, 0.45), var(--shadow-deep);
+}
+@media (max-width: 720px) {
+  .discord-fab { right: 16px; bottom: 16px; width: 48px; height: 48px; }
+  .discord-fab svg { width: 22px; height: 22px; }
 }
 
 /* ============ Utility ============ */

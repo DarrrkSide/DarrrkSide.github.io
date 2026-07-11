@@ -91,23 +91,6 @@
 .feature-card p { font-size: 0.92rem; margin-bottom: 16px; }
 .feature-card .btn { font-size: 0.72rem; padding: 10px 16px; }
 
-.faction-strip {
-  display: flex;
-  gap: 18px;
-  overflow-x: auto;
-  padding-bottom: 10px;
-}
-.faction-pill {
-  flex-shrink: 0;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 16px 20px;
-  min-width: 200px;
-  background: var(--panel);
-}
-.faction-pill h4 { font-size: 0.95rem; margin-bottom: 4px; color: var(--moss-glow); }
-.faction-pill p { font-size: 0.82rem; margin: 0; }
-
 /* ============================================================
    GUIDE CARDS (Story / Dungeon / Raid / Towers / Bosses / etc.)
    ============================================================ */
@@ -144,7 +127,7 @@
   border-radius: 20px;
   color: var(--moss-glow);
 }
-.guide-card h3 { margin-bottom: 0; }
+.guide-card h3 { margin-bottom: 0; font-size: 1.6rem; line-height: 1.15; }
 
 .code-btn {
   display: inline-flex;
@@ -209,7 +192,14 @@
 @media (max-width: 640px) { .guide-columns { grid-template-columns: 1fr; } }
 
 .guide-stat { margin: 0; padding-top: 4px; }
-.guide-meta { border-top: none; padding-top: 0; }
+.guide-meta {
+  border-top: none;
+  padding-top: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 .rng-tag { border-color: var(--lantern-dim); color: var(--lantern); }
 .guide-author { font-family: var(--f-mono); font-size: 0.7rem; color: var(--ink-faint); margin-left: auto; }
 
