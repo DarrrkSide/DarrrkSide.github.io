@@ -47,13 +47,16 @@
     const title = entry.location || entry.tier || categoryLabel;
     const showTier = entry.tier && entry.tier !== title;
     const members = entry.members
-      .map(
-        (m) => `
+      .map((m) => {
+        const rarityTag = m.r
+          ? `<span class="rarity-text rarity-${escapeHTML(String(m.r).toLowerCase())}">${escapeHTML(m.r)}</span>`
+          : "";
+        return `
         <div class="team-member guide-member">
           ${avatarHTML(m.n)}
-          <span class="guide-member-text"><strong>${escapeHTML(m.n)}</strong>${m.i && m.i !== "--" ? `<span>${escapeHTML(m.i)}</span>` : ""}</span>
-        </div>`
-      )
+          <span class="guide-member-text"><strong>${escapeHTML(m.n)}${rarityTag}</strong>${m.i && m.i !== "--" ? `<span>${escapeHTML(m.i)}</span>` : ""}</span>
+        </div>`;
+      })
       .join("");
     const required = entry.required.length
       ? `<div class="guide-col"><span class="eyebrow">Required</span><ul>${entry.required.map((r) => `<li>${escapeHTML(r)}</li>`).join("")}</ul></div>`

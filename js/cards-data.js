@@ -260,7 +260,14 @@ const CARDS = [
   /* --- Snow Moon pool (bonus cycle, +stat multiplier over standard pool) --- */
 {
   id: "ice-dragon",
-  ...
+  name: "Ice Dragon",
+  altName: null,
+  role: "Attacker",
+  pool: "Snow Moon",
+  tier: null,
+  image: "https://static.wikia.nocookie.net/anime-card-clash/images/b/bb/Ice_Dragon.png/revision/latest?cb=20250801141715",
+  wikiUrl: "https://anime-card-clash.fandom.com/wiki/File:Ice_Dragon.png",
+  ability: { name: "Ice Wings", text: "Applies Permafrost after landing a hit — a 50% chance each turn to freeze the opponent for 1 turn before they attack." },
   stats: {
     Basic:   { odds: "1 in 350K", hp: "925", dmg: "463" },
     Gold:    { odds: "1 in 35M", hp: "3.7K", dmg: "1.85K" },
@@ -270,7 +277,14 @@ const CARDS = [
   },
 {
   id: "snake-empress",
-  ...
+  name: "Snake Empress",
+  altName: null,
+  role: "Attacker",
+  pool: "Snow Moon",
+  tier: "B",
+  image: "https://static.wikia.nocookie.net/anime-card-clash/images/a/a6/Snake_Empress.png/revision/latest?cb=20250801141814",
+  wikiUrl: "https://anime-card-clash.fandom.com/wiki/File:Snake_Empress.png",
+  ability: { name: "Love Gaze", text: "Gains a charge every time this card is attacked. At 3 charges, heals for 40% max health and freezes the opponent for 2 turns." },
   stats: {
     Basic:   { odds: "1 in 3.5M", hp: "1.81K", dmg: "904" },
     Gold:    { odds: "1 in 350M", hp: "7.24K", dmg: "3.62K" },
@@ -280,7 +294,14 @@ const CARDS = [
 },
    {
   id: "white-dragon-emperor",
-  ...
+  name: "White Dragon Emperor",
+  altName: null,
+  role: "Attacker",
+  pool: "Snow Moon",
+  tier: "A",
+  image: "https://static.wikia.nocookie.net/anime-card-clash/images/4/4c/White_Dragon_Emperor.png/revision/latest?cb=20250801141846",
+  wikiUrl: "https://anime-card-clash.fandom.com/wiki/File:White_Dragon_Emperor.png",
+  ability: { name: "Divine Divide", text: "Reduces opponent attack by 5% every turn. If Red Dragon Emperor is in the party, this increases to 15% every turn." },
   stats: {
     Basic:   { odds: "1 in 5M", hp: "2.06K", dmg: "1.03K" },
     Gold:    { odds: "1 in 500M", hp: "8.24K", dmg: "4.12K" },
